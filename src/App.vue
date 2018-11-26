@@ -1,26 +1,36 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <v-header :seller="seller"></v-header>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import VHeader from 'components/v-header/v-header'
+  import { getSeller } from 'api' // 配置别名
 
-export default {
-  name: 'app',
-  components: {
-    HelloWorld
+  export default {
+    name: 'app',
+    data() { // 函数返回一个对象
+      return {
+        seller: {}
+      }
+    },
+    created() { // 生命周期
+      this._getSeller()
+    },
+    methods: {
+      _getSeller() {
+        getSeller().then((seller) => { // 返回一个promise，.then 一定会获取数据(封装后的)
+          this.seller = seller
+        })
+      }
+    },
+    components: {
+      VHeader
+    }
+
   }
-}
 </script>
 <style lang="stylus">
-#app
-  font-family 'Avenir', Helvetica, Arial, sans-serif
-  -webkit-font-smoothing antialiased
-  -moz-osx-font-smoothing grayscale
-  text-align center
-  color #2c3e50
-  margin-top 60px
+
 </style>
