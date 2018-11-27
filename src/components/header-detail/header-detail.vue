@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="header-detail">
+    <div v-show="visible" class="header-detail">
       <div class="detail-wrapper clear-fix">
         <div class="detail-main">
           <h1 class="name">{{seller.name}}</h1>
@@ -28,7 +28,7 @@
           </div>
         </div>
       </div>
-      <div class="detail-close">
+      <div class="detail-close" @click="hide">
         <i class="icon-close"></i>
       </div>
     </div>
@@ -49,6 +49,19 @@
         }
       }
     },
+    data() {
+      return {
+        visible: false
+      }
+    },
+    methods: {
+      show() {
+        this.visible = true
+      },
+      hide() {
+        this.visible = false
+      }
+    },
     components: {
       SupportIco,
       Star
@@ -67,8 +80,8 @@
     top: 0
     left: 0
     width: 100%
-    height: 200%
-    overflow: hidden
+    height: 100%
+    overflow: auto
     backdrop-filter: blur(10px)
     opacity: 1
     color: $color-white
@@ -123,7 +136,6 @@
             .text
               line-height: 16px
               font-size: $fontsize-small
-
         .bulletin
           width: 80%
           margin: 0 auto

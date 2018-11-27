@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="header" @click="showDetail">
     <div class="content-wrapper">
       <div class="avatar">
         <img width="64" height="64" :src="seller.avatar">
@@ -43,6 +43,16 @@
         default() {
           return {}
         }
+      }
+    },
+    methods: {
+      showDetail() { // 弹窗显示
+        this.headerDetailComp = this.headerDetailComp || this.$createHeaderDetail({ // 返回一个组件实例
+          $props: {
+            seller: 'seller'
+          }
+        })
+        this.headerDetailComp.show() // 之前返回一个组件实例，所以可以使用它的方法
       }
     },
     components: {
