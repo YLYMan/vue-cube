@@ -60,7 +60,7 @@
   &.guarantee
     bg-image('guarantee_2')
 
-  .icon-1
+  .icon-3
     width: 12px
     height: 12px
     background-size: 12px 12px
@@ -75,7 +75,7 @@
   &.guarantee
     bg-image('guarantee_3')
 
-  .icon-2
+  .icon-4
     width: 16px
     height: 16px
     background-size: 16px 16px
