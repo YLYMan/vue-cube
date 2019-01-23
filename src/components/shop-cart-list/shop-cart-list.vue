@@ -43,7 +43,6 @@
   import CartControl from 'components/cart-control/cart-control'
   import popupMixin from 'common/mixins/popup'
 
-  const EVENT_HIDE = 'hide'
   const EVENT_LEAVE = 'leave'
   const EVENT_ADD = 'add'
   const EVENT_SHOW = 'show'
@@ -65,7 +64,7 @@
           // Dom 更新了， refresh() 重新计算 better-scroll
           this.$refs.listContent.refresh()
         })
-      });
+      })
     },
     methods: {
       onLeave() {
