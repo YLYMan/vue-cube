@@ -37,6 +37,7 @@
           :title="good.name">
           <ul>
             <li
+              @click="selectFood(food)"
               v-for="food in good.foods"
               :key="food.name"
               class="food-item"
@@ -94,6 +95,7 @@
     data() {
       return {
         goods: [],
+        selectedFood: {},
         scrollOptions: {
           click: false, // 有两次点击事件可以看情况，选择是 true或 false
           directionLockThreshold: 0
@@ -136,6 +138,11 @@
       }
     },
     methods: {
+      selectFood(food) {
+        this.selectedFood = food
+        this._showFood()
+        this._showShopCartSticky()
+      },
       fetch() {
         if (!this.fetched) {
           this.fetched = true // fetched 表示获取过一次
@@ -146,6 +153,36 @@
       },
       onAdd(el) { // el 加号按钮的信息
         this.$refs.shopCart.drop(el) // 驱动购物车 drop函数
+      },
+      _showFood() { // 显示food 组件
+        this.foodComp = this.foodComp || this.$createFood({
+          $props: {
+            food: 'selectedFood'
+          },
+          $events: {
+            leave: () => {
+              this._hideShopCartList()
+            },
+            add: (el) => { // 监听food组件中 cart-control 派发的 add 事件
+              this.shopCartStickyComp.drop(el)
+            }
+          }
+        })
+        this.foodComp.show()
+      },
+      _showShopCartSticky() {
+        this.shopCartStickyComp = this.shopCartListComp || this.$createShopCartSticky({
+          $props: {
+            selectFoods: 'selectFoods',
+            deliveryPrice: this.seller.deliveryPrice,
+            minPrice: this.seller.minPrice,
+            fold: true
+          }
+        })
+        this.shopCartStickyComp.show()
+      },
+      _hideShopCartList() {
+        this.shopCartStickyComp.hide()
       }
     },
     components: {
