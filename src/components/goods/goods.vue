@@ -146,7 +146,9 @@
       fetch() {
         if (!this.fetched) {
           this.fetched = true // fetched 表示获取过一次
-          getGoods().then((goods) => {
+          getGoods({
+            id: this.seller.id
+          }).then((goods) => {
             this.goods = goods
           })
         }

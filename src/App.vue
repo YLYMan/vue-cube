@@ -14,12 +14,15 @@
   import Seller from 'components/seller/seller'
   import Tab from 'components/tab/tab'
   import { getSeller } from 'api' // 配置别名
+  import qs from 'query-string'
 
   export default {
     name: 'app',
     data() { // 函数返回一个对象
       return {
-        seller: {}
+        seller: {
+          id: qs.parse(location.search).id // 获取到id
+        }
       }
     },
     computed: {
@@ -54,7 +57,9 @@
     },
     methods: {
       _getSeller() {
-        getSeller().then((seller) => { // 返回一个promise，.then 一定会获取数据(封装后的)
+        getSeller({
+          id: this.seller.id // 传入id
+        }).then((seller) => { // 返回一个promise，.then 一定会获取数据(封装后的)
           this.seller = seller
         })
       }
